@@ -5,7 +5,10 @@ allow for nginx to be reloaded with a new reverse proxy every time a container
 is started or stopped.
 
 This image is mainly a [copy of the original][2] work by [Jason Wilder][3], but
-rewritten to use the lightweight structure of [nginx docker image][4].
+rewritten to use the A
+lightweight structure of [nginx docker image][4].
+
+This image is mostly a copy of [Jason Wilder's](https://github.com/jwilder) [nginx-proxy](https://github.com/jwilder/nginx-proxy) with an upgrade to Debian Jessie and nginx 1.12.
 
 See [Automated Nginx Reverse Proxy for Docker][5] for why you might want to use
 this.
@@ -18,7 +21,7 @@ To run it:
 docker run -d \
     -p 80:80 \
     -v /var/run/docker.sock:/tmp/docker.sock \
-    joaodubas/nginx-proxy
+    inhortte/nginx-proxy
 ```
 
 Then start any containers you want proxied with an environment variable
@@ -49,7 +52,7 @@ host will be setup the same.
 ## Volumes
 
 To make it easier to also use this image to serve static content, one can mount
-additional configurations files in the folder `/opt/nginx-proxy/sites-static`.
+additional configurations files in the folder `/opt/nginx-proxy/sites-static`, and mount a base html directory at `/usr/share/nginx/html`.
 
 By default, [docker-gen][1] will generate configurations based on
 [nginx.tmpl][6], if a different template needs to be used, mount a volume in

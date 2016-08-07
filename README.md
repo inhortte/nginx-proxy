@@ -4,10 +4,6 @@ _nginx-proxy_ sets up a container running [nginx][0] and [docker-gen][1], that
 allow for nginx to be reloaded with a new reverse proxy every time a container
 is started or stopped.
 
-This image is mainly a [copy of the original][2] work by [Jason Wilder][3], but
-rewritten to use the A
-lightweight structure of [nginx docker image][4].
-
 This image is mostly a copy of [Jason Wilder's](https://github.com/jwilder) [nginx-proxy](https://github.com/jwilder/nginx-proxy) with an upgrade to Debian Jessie and nginx 1.12.
 
 See [Automated Nginx Reverse Proxy for Docker][5] for why you might want to use

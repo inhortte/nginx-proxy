@@ -1,10 +1,5 @@
 # nginx autogenerator reverse proxy
 #
-# Based on:
-# https://github.com/nginxinc/docker-nginx/blob/64ce8e442caea8b78ff5ebc144a527fc3f6d6d8b/Dockerfile
-# https://github.com/jwilder/nginx-proxy/blob/941f3cc9d2b4bdb97f2c63681dd586cca55e3ee3/Dockerfile
-#
-# VERSION: see `TAG`
 FROM debian:jessie
 MAINTAINER inhortte@gmail.com
 
@@ -22,7 +17,10 @@ RUN apt-key adv \
         >> /etc/apt/sources.list \
     && apt-get -y -qq --force-yes update \
     && apt-get --only-upgrade install bash \
-    && apt-get -y -qq --force-yes install nginx=${NGINX_VERSION} wget
+    && apt-get -y -qq --force-yes install \
+      nginx=${NGINX_VERSION} wget ca-certificates \
+    && apt-get clean \
+    && rm -r /var/lib/apt/lists/*
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
@@ -55,6 +53,6 @@ ADD ./Procfile /opt/nginx-proxy/Procfile
 
 # container conf
 EXPOSE 80 443
-VOLUME ["/opt/nginx-proxy/nginx", "/opt/nginx-proxy/sites-static", "/usr/share/nginx/html"]
+VOLUME ["/etc/nginx/certs", "/opt/nginx-proxy/nginx", "/opt/nginx-proxy/sites-static", "/usr/share/nginx/html"]
 WORKDIR /opt/nginx-proxy
 CMD ["forego", "start", "-r"]
